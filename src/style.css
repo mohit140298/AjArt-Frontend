@@ -1,0 +1,46 @@
+body, html {
+  height: 100%;
+}
+.bg {
+  /* The image used */
+  background-image: url("./images/home.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+  @media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{  display:block; opacity: 0;  visibility: hidden; transition:.3s; margin-top:0;  }
+	.navbar .nav-item:hover .nav-link{  color: #fff; background-color: rgb(113, 165, 162);}
+  .navbar .nav-item:active .nav-link{  background-color: rgb(38, 99, 122);}
+	.navbar .dropdown-menu.fade-down{ top:80%; transform: rotateX(-75deg); transform-origin: 0% 0%; }
+	.navbar .dropdown-menu.fade-up{ top:180%;  }
+}
+
+.card{
+  width: 50%;
+  left: 25%;
+  right: 30%;
+  margin-top: 5%;
+  text-align: center;
+}
+
+input {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-color: blue
+}
+input:focus {
+  border-color: green
+}
+a:link {
+  text-decoration: none;
+  border: none;
+}
+img{border:0;}
