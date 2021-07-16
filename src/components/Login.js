@@ -1,6 +1,7 @@
 import React, { useState }  from 'react'
 import login from '../images/login.png'
 import { useHistory } from 'react-router-dom'
+import Cookie from 'js-cookie'
 
 const Login = () => {
     const history = useHistory()
@@ -39,7 +40,8 @@ const Login = () => {
         }
         else {
             alert("login success")
-            console.log(result.data)
+            console.log(result.data.token)
+            Cookie.set("jwt",result.token)
             history.push('/about')
         }
     }
