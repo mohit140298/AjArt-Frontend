@@ -36,27 +36,54 @@ function About() {
     }
 
     return (
-        <div className="card border-0">
-            <h1>About</h1>
-            <table class="table table-bordered mt-5">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Mobile</th>
-                        <th scope="col">Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">{user.name}</th>
-                        <td>{user.email}</td>
-                        <td>{user.mobile}</td>
-                        <td>{role}</td>
-                    </tr>
-                   
-                </tbody>
-            </table>
+        <div className="text-center mt-3 me-5 ms-5">
+            <h1>About Me</h1>
+            <div class="d-flex justify-content-center align-items-center mt-5">
+                <div class='card aboutCard'>
+                    <div class="row col-12">
+                        <div class="col-3">
+                            <img src="images/default.jpg" alt="user-image" width="200px" height="150px" />
+                        </div>
+                        <div class="col-8">
+                            <div class="row dataRow">
+                                <div class="col-6">
+                                    Name :
+                                </div>
+                                <div class="col-6">
+                                    {user.name}
+                                </div>
+                            </div>
+
+                            <div class="row dataRow">
+                                <div class="col-6">
+                                    Email :
+                                </div>
+                                <div class="col-6">
+                                    {user.email}
+                                </div>
+                            </div>
+                            <div class="row dataRow">
+                                <div class="col-6">
+                                    Mobile :
+                                </div>
+                                <div class="col-6">
+                                    {user.mobile}
+                                </div>
+                            </div>
+                            <div class="row dataRow">
+                                <div class="col-6">
+                                    Role :
+                                </div>
+                                <div class="col-6">
+                                    {role}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           
         </div>
     )
 }

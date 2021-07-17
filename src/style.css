@@ -1,9 +1,10 @@
 body, html {
-  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .bg {
   /* The image used */
-  background-image: url("./images/home.png");
+
 
   /* Full height */
   height: 100%;
@@ -23,13 +24,6 @@ body, html {
 	.navbar .dropdown-menu.fade-up{ top:180%;  }
 }
 
-.card{
-  width: 50%;
-  left: 25%;
-  right: 30%;
-  margin-top: 5%;
-  text-align: center;
-}
 
 input {
   outline: 0;
@@ -43,4 +37,63 @@ a:link {
   text-decoration: none;
   border: none;
 }
-img{border:0;}
+img{
+  border:0;
+}
+
+.red{
+  color: red;
+}
+
+
+.navUl ul{
+  display: flex;
+  list-style: none;
+}
+.navUl li .link{
+  color: black;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.carousalDiv{
+  margin-top: 2%;
+  padding: 0;
+}
+.productCard{
+transition: transform .2s;
+margin-top: 30px;
+}
+
+.productCard:hover{
+  box-shadow: 5px 5px 5px 5px;
+  transform: scale(1.1);
+}
+.footer{
+  margin-top: 100px;
+  height:300px;
+  background-color: grey;
+  color: #fff;
+}
+.productFlex{
+  margin-top:100px;
+  flex-flow: wrap;
+  max-width: 1505px;
+
+}
+.aboutCard{
+  width: 60%;
+  height:250px;
+  box-shadow: 5px 10px #888888;
+  padding:10px
+
+}
+.dataRow{
+  line-height: 1.5;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  font-weight: bolder;
+}
+
+

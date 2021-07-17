@@ -6,6 +6,9 @@ import Home from './components/Home'
 import About from './components/About'
 import Navbar from './components/Navbar';
 import UserNavBar from './components/UserNavBar';
+import HomeCarousal from './components/Carousal';
+import Footer from './components/footer';
+import Logout from './components/Logout';
 
 import { Route, Switch } from "react-router-dom";
 import Error from './components/Error'
@@ -13,13 +16,15 @@ import Error from './components/Error'
 
 const App = () => {
     return (
-        <div className="container">
+        <div className="container-fluid">
            
             <Switch>
 
                 <Route exact path="/">
                     <UserNavBar />
+                    {/* <HomeCarousal /> */}
                     <Home />
+                    
                 </Route>
                 <Route path="/about">
                     <UserNavBar />
@@ -33,10 +38,15 @@ const App = () => {
                     <Navbar />
                     <Register />
                 </Route>
+                <Route path="/Logout">
+                    <Navbar />
+                    <Logout />
+                </Route>
                 <Route>
                     <Error />
                 </Route>
             </Switch>
+            <Footer />
         </div>
     )
 }

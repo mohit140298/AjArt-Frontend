@@ -1,5 +1,4 @@
 import React, { useState }  from 'react'
-import login from '../images/login.png'
 import { useHistory } from 'react-router-dom'
 import Cookie from 'js-cookie'
 
@@ -46,11 +45,11 @@ const Login = () => {
         }
     }
     return (
-        <div class="card border-0">
+        <div class="text-center mt-3">
             <div class="card-body">
                 <div className="text-center">
                     <h3 class="card-title">Sign in</h3>
-                    <img src={login} alt="" className="rounded-circle pt-3" width="50px"></img>
+                    <img src="images/login.png" alt="" className="rounded-circle pt-3" width="50px"></img>
                 </div>
                 
                 <form method="POST" id="loginForm">

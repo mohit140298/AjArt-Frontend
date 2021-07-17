@@ -54,9 +54,8 @@ const Home = () => {
       }
 
 return (
-  <div className="card border-0">
-    <h1>Welcome {user.name} To Resin Art Store By AJ</h1>
-    <div class="d-flex justify-content-around align-items-center">
+  <div >
+    <div class="d-flex justify-content-around align-items-center mt-5 productFlex">
       {products.map(product => {
         return <div><ProductCard product={product} /></div>
       })}

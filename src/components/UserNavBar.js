@@ -1,28 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../images/logo.jpg'
 
 function UserNavBar() {
     return (
-        <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">
-                    <img src={logo} alt="logo" width="60px"></img>
-                </Link>
-
-
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav ms-auto">
-                        <li className="nav-item active">
-                            <Link className="nav-link" to="/" >Home</Link>
-                        </li>
-                        <li className="nav-item active">
-                            <Link className="nav-link" to="/about" >About</Link>
-                        </li>
-                    </ul>
+        <div className="userNav">
+            <nav className=" m-0 p-3" >
+                <div className="d-flex justify-content-between align-items-center">
+                    <div>
+                        <Link className="navbar-brand" to="/">
+                            <img src="images/logo.jpg" alt="logo" width="60px"></img>
+                        </Link>
+                    </div>
+                    <div className="navUl">
+                        <ul>
+                            <li className="me-3">
+                                <Link className="link" to="/" >Home</Link>
+                            </li>
+                            <li className="me-3">
+                                <Link className="link" to="/about" >About</Link>
+                            </li>
+                            <li className="me-3">
+                                <Link className="link" to="/about" >MyCart</Link>
+                            </li>
+                            <li className="">
+                                <Link className="link" to="/Logout" >Logout</Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
-        </>
+
+
+        </div>
     )
 }
 
