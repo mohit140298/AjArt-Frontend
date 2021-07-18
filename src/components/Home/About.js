@@ -1,16 +1,61 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import { FaEdit } from 'react-icons/fa'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function About() {
     const history = useHistory();
     const [user, setUser] = useState({})
-    const [role,setRole] = useState('')
+    const [role, setRole] = useState('')
+    const [image, setImage] = useState("images/default.jpg")
     
+    
+
+    const handleImage = async (e) => {
+    //   e.preventDefault()
+        const formData = new FormData();
+        formData.append('file', e.target.files[0])
+        try {
+            const res = await axios.post(`/user/${user._id}/upload`, formData, {
+                header: {
+                    'Content-Type': "multipart/form-data"
+                }
+            });
+            
+                
+            toast.success('operation success', {
+                position: "top-right",
+                autoClose: 8000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+         
+            
+        } catch (error) {
+            console.log(error)
+            toast.error('operation failed !', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        
+    }
+
     useEffect(() => {
         fetchUser()
     }, [])
-    
+
     const fetchUser = async () => {
         try {
             const user = await fetch(`/user`);
@@ -27,12 +72,11 @@ function About() {
                 setRole(role)
             }
 
-        } catch (err)
-        {
+        } catch (err) {
             console.log(err);
             history.push('/Login')
         }
-        
+
     }
 
     return (
@@ -41,8 +85,13 @@ function About() {
             <div class="d-flex justify-content-center align-items-center mt-5">
                 <div class='card aboutCard'>
                     <div class="row col-12">
-                        <div class="col-3">
-                            <img src="images/default.jpg" alt="user-image" width="200px" height="150px" />
+                        <div class="col-3 container-image">
+                            <img src={user.profileImage?user.profileImage : image} class="image" alt="user-image" width="200px" height="150px" />
+                            <div class="overlay">
+                                <input type="file" class="icon d-none" id="user-image" onChange={handleImage}/>
+                                <label for="user-image"><FaEdit class="fa-user" /></label>
+                            </div>
+                            
                         </div>
                         <div class="col-8 infoDiv">
                             <div class="row dataRow">

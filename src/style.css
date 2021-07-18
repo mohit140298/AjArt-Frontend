@@ -97,3 +97,30 @@ margin-top: 30px;
 }
 
 
+* {box-sizing: border-box;}
+
+.container-image {
+  position: relative;
+}
+
+.image {
+  display: block;
+  border-radius: 50%;
+}
+
+.overlay {
+  position: absolute;
+  left: 50%; 
+  bottom: 50%;
+  top: 50%; 
+  right: 50%;
+  color: #000000; 
+  transition: .5s ease;
+  opacity:0;
+  color: rgb(0, 0, 0);
+  text-align: center;
+}
+
+.container-image:hover .overlay {
+  opacity: 1;
+}
