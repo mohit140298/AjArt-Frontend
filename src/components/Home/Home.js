@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
-import  ProductCard from './Product'
+import  ProductCard from '../Product/Product'
 
 const Home = () => {
   const history = useHistory()

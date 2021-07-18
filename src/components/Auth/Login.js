@@ -1,6 +1,9 @@
 import React, { useState }  from 'react'
 import { useHistory } from 'react-router-dom'
 import Cookie from 'js-cookie'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {Link} from 'react-router-dom'
 
 const Login = () => {
     const history = useHistory()
@@ -35,13 +38,31 @@ const Login = () => {
 
         if (result.status != "success" || !result.data)
         {
-            alert("Login Failed");
+            toast.error('invalid credentials !', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+           
+       
         }
         else {
-            alert("login success")
+            toast.success('operation success', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             console.log(result.data.token)
             Cookie.set("jwt",result.token)
-            history.push('/about')
+            history.push('/')
         }
     }
     return (
@@ -68,7 +89,7 @@ const Login = () => {
                         <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={Login}>signin</button>
                     </div>
                     <div className="pt-3">
-                        <a href="/" className="text-dark">forgot password</a>
+                        <Link to="/Forgot" className="text-dark">forgot password</Link>
                     </div>
                         
                 </form>
