@@ -1,5 +1,7 @@
 import React,{useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
     const history = useHistory()
@@ -34,11 +36,27 @@ function Register() {
         const result = await res.json();
         if (result.status != "success" || !result.data)
         {
-            window.alert("registration failed")
+            toast.error('invalid credentials !', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
         else {
             console.log(result.data);
-            window.alert('registration success')
+            toast.success('operation success', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             history.push('/login')
         }
         

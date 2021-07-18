@@ -44,7 +44,7 @@ function About() {
                         <div class="col-3">
                             <img src="images/default.jpg" alt="user-image" width="200px" height="150px" />
                         </div>
-                        <div class="col-8">
+                        <div class="col-8 infoDiv">
                             <div class="row dataRow">
                                 <div class="col-6">
                                     Name :

@@ -1,17 +1,18 @@
 import { Container } from '@material-ui/core';
 import React from 'react'
-import Login from './components/Login'
-import Register from './components/Register'
-import Home from './components/Home'
-import About from './components/About'
-import Navbar from './components/Navbar';
-import UserNavBar from './components/UserNavBar';
-import HomeCarousal from './components/Carousal';
-import Footer from './components/footer';
-import Logout from './components/Logout';
+import Login from './components/Auth/Login'
+import Register from './components/Auth/Register'
+import Home from './components/Home/Home'
+import About from './components/Home/About'
+import Navbar from './components/Nav/Navbar';
+import UserNavBar from './components/Nav/UserNavBar';
+import HomeCarousal from './components/Product/Carousal';
+import Footer from './components/Home/footer';
+import Logout from './components/Auth/Logout';
 
 import { Route, Switch } from "react-router-dom";
 import Error from './components/Error'
+import Forgot from './components/Auth/Forgot';
 
 
 const App = () => {
@@ -41,6 +42,10 @@ const App = () => {
                 <Route path="/Logout">
                     <Navbar />
                     <Logout />
+                </Route>
+                <Route path="/Forgot">
+                    <Navbar />
+                    <Forgot />
                 </Route>
                 <Route>
                     <Error />
