@@ -13,6 +13,7 @@ import Logout from './components/Auth/Logout';
 import { Route, Switch } from "react-router-dom";
 import Error from './components/Error'
 import Forgot from './components/Auth/Forgot';
+import MyCart from './components/Home/MyCart';
 
 
 const App = () => {
@@ -30,6 +31,10 @@ const App = () => {
                 <Route path="/about">
                     <UserNavBar />
                     <About />
+                </Route>
+                <Route path="/mycart">
+                    <UserNavBar />
+                    <MyCart />
                 </Route>
                 <Route path="/Login">
                     <Navbar />

@@ -20,7 +20,7 @@ function UserNavBar() {
                                 <Link className="link" to="/about" >About</Link>
                             </li>
                             <li className="me-3">
-                                <Link className="link" to="/about" >MyCart</Link>
+                                <Link className="link" to="/mycart" >MyCart</Link>
                             </li>
                             <li className="">
                                 <Link className="link" to="/Logout" >Logout</Link>
