@@ -1,7 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
-import  ProductCard from '../Product/Product'
+import ProductCard from '../Product/Product'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const history = useHistory()
@@ -51,13 +54,34 @@ const Home = () => {
       }
       
 
-      }
+  }
+  
+  const addToCart = async (productId) => {
+    try {
+      const res = await axios.post(`user/addProduct/${productId}`)
+      if (res.status === 200)
+      {
+        toast.success('operation success', {
+          position: "top-right",
+          autoClose: 8000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        }
+    } catch (error) {
+      console.log(error)
+    }
+   
+  }
 
 return (
   <div >
     <div class="d-flex justify-content-around align-items-center mt-5 productFlex">
       {products.map(product => {
-        return <div><ProductCard product={product} /></div>
+        return <div><ProductCard  product={product} addToCart={addToCart} /></div>
       })}
     </div>
     

@@ -124,3 +124,10 @@ margin-top: 30px;
 .container-image:hover .overlay {
   opacity: 1;
 }
+
+.cartProductCard{
+  width: 50%;
+  min-height:200px;
+  left:23%;
+  padding:10px
+}

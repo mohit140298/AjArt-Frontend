@@ -1,6 +1,9 @@
 import React, { useState ,useEffect} from 'react'
 import { useHistory } from 'react-router-dom';
 import MyCartProduct from './MyCartProduct'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'
 
 const MyCart = () => {
     const history = useHistory();
@@ -10,34 +13,43 @@ const MyCart = () => {
 
     const fetchMyCartProducts = async () => {
         try {
-            const res = await fetch(`/user/${user._id}/cartProducts`);
+            const res = await fetch(`/user/cartProducts`);
             const productsData = await res.json();
             if (productsData)
             {
-                if (productsData.data)
-                {
+                if (productsData.data) {
+                    
                     setMyProducts(productsData.data);
 
-                    let totalPrice = 0;
-                    productsData.data.map((product) => {
-                        totalPrice = totalPrice + product.price
-                    })
+                    let totalPrice = productsData.data.reduce(function (tot, arr) {
+                        // return the sum with previous value
+                        return tot + arr.price;
+
+                        // set initial value as 0
+                    }, 0);
+                    if(totalPrice)
                     setTotal(totalPrice)
                 }
                     
             }
         } catch (error) {
             console.log(error)
+            toast.error('operation failed !', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
 
     useEffect(() => {
-        fetchMyCartProducts()
-    },[])
-
-    useEffect(() => {
         fetchUser()
     }, [])
+   
 
     const fetchUser = async () => {
         try {
@@ -45,27 +57,76 @@ const MyCart = () => {
             const userData = await user.json();
 
             if (userData.status === 403) {
-                alert("permission denied")
+                toast.error('operation failed !', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
                 history.push('/Login')
             }
             else {
                 const data = userData.data
                 
                 setUser(data);
+                fetchMyCartProducts()
+                
             }
 
         } catch (err) {
             console.log(err);
+            toast.error('operation failed !', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
             history.push('/Login')
         }
 
+    }
+
+    const removeProductFromCart = async (productId) => {
+        try {
+            const res = await axios.delete(`user/removeProduct/${productId}`)
+            if (res.status === 200) {
+                toast.success('operation success', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                window.location.reload()
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error('operation failed !', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+        
     }
     return (
         <div class="text-center mt-3">
             <div class="card-body">
                 <div className="text-center">
                     <h3 class="card-title">My Cart</h3>
-                    <img src={user.profileImage} alt="" className=" pt-3" width="200px" height="100px" style={{borderRadius:"60%"}}></img>
+                    <img src="images/cart.jpg" alt="" className=" pt-3" width="100px" height="100px" style={{borderRadius:"60%"}}></img>
                    
                 </div>
 
@@ -73,15 +134,15 @@ const MyCart = () => {
                
 
                 <form method="POST" id="cartForm">
-                    <div className="mb-3 pt-3">
+                    <div className="mb-3 pt-3 text-center">
                        
                             {myProducts.map((product) => {
-                                return <MyCartProduct product={product} />
+                                return <MyCartProduct key={product._id} product={product} removeProductFromCart={removeProductFromCart} />
                             })}
                         
                     </div>
 
-                    <div class='card aboutCard mt-5 mb-5' style={{left:"20%"}}>
+                    <div class='card cartProductCard mt-5 mb-5' style={{left:"20%"}}>
                         <div class="row col-12">
                             <div class="col-3 container-image">
                            
@@ -101,7 +162,7 @@ const MyCart = () => {
 
                                 <div class="row dataRow">
                                     <div class="col-6">
-                                       Total:
+                                       Total :
                                     </div>
                                     <div class="col-6">
                                         {total}

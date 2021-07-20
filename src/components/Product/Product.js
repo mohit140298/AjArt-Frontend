@@ -2,7 +2,7 @@ import React from 'react'
 
 function Product(props) {
    
-    const product = props.product
+    const { product, addToCart } = props
     return (
         <div>
             <div className="card productCard">
@@ -10,7 +10,7 @@ function Product(props) {
                 <div class="card-body" style={{ width: "300px"}}>
                     <h5 class="card-title">{product.name}</h5>
                     <p class="card-text">Rs {product.price} -/</p>
-                    <a href="#" class="btn btn-primary">Add to cart</a>
+                    <button onClick={() => addToCart(product._id)} class="btn btn-primary">Add to cart</button>
                    
                 </div>
             </div>
