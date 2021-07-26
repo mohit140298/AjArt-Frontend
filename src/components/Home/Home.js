@@ -1,15 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom'
+import { useHistory,Link } from 'react-router-dom'
 import ProductCard from '../Product/Product'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminCard from './AdminCard'
+
+import { FaPlus }  from "react-icons/fa";
 
 const Home = () => {
   const history = useHistory()
   const [user, setUser] = useState({});
-  const [products,setProducts] = useState([])
+  const [role, setRole] = useState({});
+  const [products, setProducts] = useState([]);
+  const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
     fetchUser()
@@ -18,7 +23,11 @@ const Home = () => {
 
   useEffect(() => {
     fetchProducts()
-  },[])
+  }, [])
+  
+  useEffect(() => {
+    fetchAdmins()
+  }, [])
 
   const fetchUser = async () => {
     try {
@@ -30,7 +39,11 @@ const Home = () => {
       }
       else {
         const data = userData.data
-        setUser(data);
+        if(data)
+          setUser(data);
+        if (userData.role)
+          setRole(userData.role)
+        
       }
 
     }
@@ -55,6 +68,20 @@ const Home = () => {
       
 
   }
+  const fetchAdmins = async () => {
+    try {
+      const res = await fetch("/admin/list")
+      const admins = await res.json()
+      const data = admins.data
+      console.log(data)
+      if (data)
+        setAdmins(data);
+    } catch (err) {
+      console.log(err)
+    }
+
+
+  }
   
   const addToCart = async (productId) => {
     try {
@@ -63,7 +90,7 @@ const Home = () => {
       {
         toast.success('operation success', {
           position: "top-right",
-          autoClose: 8000,
+          autoClose: 2000,
           hideProgressBar: true,
           closeOnClick: true,
           pauseOnHover: true,
@@ -77,17 +104,50 @@ const Home = () => {
    
   }
 
-return (
-  <div >
-    <div class="d-flex justify-content-around align-items-center mt-5 productFlex">
-      {products.map(product => {
-        return <div><ProductCard  product={product} addToCart={addToCart} /></div>
-      })}
-    </div>
+  
+  let htmlContent;
+  if (role.index_id === 1)
+  {
     
-  </div>
+    htmlContent =
+      <div className="m-0 p-3">
+        <div className="d-flex justify-content-between align-items-center mt-5">
+          <div className="ms-3">
+            <h2 ></h2>
+          </div>
+          <div className="me-3">
+            <Link className="btn btn-lg btn-primary btn-block" to="/createAdmin"><FaPlus /> Create Admin</Link>
+          </div>
+      </div>
+      <div className="row d-flex col-12">
+        {admins.map((admin) => {
+          return <AdminCard admin={admin} />
+        })}
+      </div>
+      
+      </div>
+  }
+  else if (role.index_id === 2)
+  {
+    htmlContent = <div>
+      Admin
+    </div>
+  }
+  else
+  {
+    htmlContent = <div class="d-flex justify-content-around align-items-center mt-5 productFlex">
+      {products.map(product => {
+        return <div><ProductCard product={product} addToCart={addToCart} /></div>
+      })}
 
-);
+    </div>
+   
+  }
+  
+  return (
+    <div>{htmlContent}</div>
+  )
+
 };
 
 export default Home;

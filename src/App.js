@@ -3,6 +3,7 @@ import React from 'react'
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import Home from './components/Home/Home'
+import CreateAdmin from './components/Auth/CreateAdmin'
 import About from './components/Home/About'
 import Navbar from './components/Nav/Navbar';
 import UserNavBar from './components/Nav/UserNavBar';
@@ -43,6 +44,10 @@ const App = () => {
                 <Route path="/Register">
                     <Navbar />
                     <Register />
+                </Route>
+                <Route path="/createAdmin">
+                    <UserNavBar />
+                    <CreateAdmin />
                 </Route>
                 <Route path="/Logout">
                     <Navbar />

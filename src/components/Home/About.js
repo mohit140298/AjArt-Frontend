@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -24,17 +24,31 @@ function About() {
                     'Content-Type': "multipart/form-data"
                 }
             });
+            if (res.status === 200)
+            {
+                toast.success('operation success', {
+                    position: "top-right",
+                    autoClose: 10000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+            else
+            {
+                toast.error('operation failed !', {
+                    position: "top-right",
+                    autoClose: 10000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                }
             
-                
-            toast.success('operation success', {
-                position: "top-right",
-                autoClose: 8000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
          
             
         } catch (error) {
