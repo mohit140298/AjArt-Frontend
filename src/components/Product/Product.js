@@ -1,8 +1,29 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
+import { FaHeart, FaCheck } from "react-icons/fa";
 
 function Product(props) {
    
-    const { product, addToCart } = props
+    const { product, addToCart, addToWishlist } = props
+    const [isWishListed, setisWishListed] = useState(false);
+
+    useEffect(() => {
+        inWishList(product._id);
+    },[])
+
+    const inWishList = async (productId) => {
+        try {
+
+            const res = await fetch(`user/checkProductInWishList/${productId}`)
+            if (res.status === 200) {
+                setisWishListed(true)
+                // window.location.reload()
+            }
+           
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div>
             <div className="card productCard">
@@ -10,8 +31,18 @@ function Product(props) {
                 <div class="card-body" style={{ width: "300px"}}>
                     <h5 class="card-title">{product.name}</h5>
                     <p class="card-text">Rs {product.price} -/</p>
-                    <button onClick={() => addToCart(product._id)} class="btn btn-primary">Add to cart</button>
-                   
+                    <div className="row col-12">
+                        <div className="col-6">
+                            <button onClick={() => addToCart(product._id)} class="btn btn-sm btn-primary">Add to cart</button>
+                        </div>
+                        {isWishListed ? <div className="col-4 ml-3 ">
+                            <button class="btn btn-sm btn-danger disabled"><FaCheck /></button>
+                        </div> :
+                            <div className="col-4 ml-3">
+                                <button onClick={() => addToWishlist(product._id)} class="btn btn-sm btn-danger"><FaHeart /></button>
+                            </div>}
+                    </div>
+
                 </div>
             </div>
         </div>

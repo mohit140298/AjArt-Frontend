@@ -98,7 +98,7 @@ const MyCart = () => {
             if (res.status === 200) {
                 toast.success('operation success', {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: true,

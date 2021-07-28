@@ -6,8 +6,10 @@ import axios from 'axios'
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminCard from './AdminCard'
+import AdminHome from './AdminHome'
 
-import { FaPlus }  from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
+
 
 const Home = () => {
   const history = useHistory()
@@ -15,6 +17,7 @@ const Home = () => {
   const [role, setRole] = useState({});
   const [products, setProducts] = useState([]);
   const [admins, setAdmins] = useState([]);
+
 
   useEffect(() => {
     fetchUser()
@@ -88,6 +91,8 @@ const Home = () => {
       const res = await axios.post(`user/addProduct/${productId}`)
       if (res.status === 200)
       {
+        
+        
         toast.success('operation success', {
           position: "top-right",
           autoClose: 2000,
@@ -97,15 +102,58 @@ const Home = () => {
           draggable: true,
           progress: undefined,
         });
+        window.location.reload()
         }
     } catch (error) {
       console.log(error)
+      toast.error('operation failed !', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
    
   }
 
+  const addToWishlist = async (productId) => {
+    try {
+      const res = await axios.post(`user/addProductToWishlist/${productId}`)
+      if (res.status === 200) {
+
+
+        toast.success('operation success', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        window.location.reload()
+      }
+    } catch (error) {
+      console.log(error)
+      toast.error('operation failed !', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+
+  }
+
+
   
-  let htmlContent;
+  let htmlContent="";
   if (role.index_id === 1)
   {
     
@@ -130,14 +178,14 @@ const Home = () => {
   else if (role.index_id === 2)
   {
     htmlContent = <div>
-      Admin
+      <AdminHome />
     </div>
   }
   else
   {
     htmlContent = <div class="d-flex justify-content-around align-items-center mt-5 productFlex">
       {products.map(product => {
-        return <div><ProductCard product={product} addToCart={addToCart} /></div>
+        return <div><ProductCard product={product} addToCart={addToCart} addToWishlist={addToWishlist}  /></div>
       })}
 
     </div>

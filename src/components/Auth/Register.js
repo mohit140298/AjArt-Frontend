@@ -36,7 +36,7 @@ function Register() {
         const result = await res.json();
         if (result.status != "success" || !result.data)
         {
-            toast.error('invalid credentials !', {
+            toast.error('operation failed !', {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: true,

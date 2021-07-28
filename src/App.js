@@ -9,6 +9,7 @@ import Navbar from './components/Nav/Navbar';
 import UserNavBar from './components/Nav/UserNavBar';
 import HomeCarousal from './components/Product/Carousal';
 import Footer from './components/Home/footer';
+import Wishlist from './components/Home/Wishlist'
 import Logout from './components/Auth/Logout';
 
 import { Route, Switch } from "react-router-dom";
@@ -48,6 +49,10 @@ const App = () => {
                 <Route path="/createAdmin">
                     <UserNavBar />
                     <CreateAdmin />
+                </Route>
+                <Route path="/wishlist">
+                    <UserNavBar />
+                    <Wishlist />
                 </Route>
                 <Route path="/Logout">
                     <Navbar />

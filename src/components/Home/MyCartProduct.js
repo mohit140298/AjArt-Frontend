@@ -37,7 +37,7 @@ const MyCartProduct = (props) => {
                             
                         </div>
                         <div class="col-6">
-                            <button type="button" className="btn btn-lg btn-primary btn-block" onClick={() => removeProductFromCart(product._id)}>Remove</button>
+                            <button type="button" className="btn btn-sm btn-primary btn-block" onClick={() => removeProductFromCart(product._id)}>Remove</button>
 
                         </div>
                     </div>

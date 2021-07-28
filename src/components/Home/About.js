@@ -28,7 +28,7 @@ function About() {
             {
                 toast.success('operation success', {
                     position: "top-right",
-                    autoClose: 10000,
+                    autoClose: 2000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: true,
@@ -40,7 +40,7 @@ function About() {
             {
                 toast.error('operation failed !', {
                     position: "top-right",
-                    autoClose: 10000,
+                    autoClose: 2000,
                     hideProgressBar: true,
                     closeOnClick: true,
                     pauseOnHover: true,
