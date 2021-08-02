@@ -1,35 +1,41 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useHistory, Link } from 'react-router-dom'
-import 'react-toastify/dist/ReactToastify.css';
-import AdminProductCard from '../Product/AdminProductCard'
+import AdminCard from './AdminCard'
+
 import { FaPlus } from "react-icons/fa";
 
-
-const AdminHome = () => {
+const SuperAdminHome = () => {
     const history = useHistory()
     const [user, setUser] = useState({});
     const [role, setRole] = useState({});
-    const [myProducts, setmyProducts] = useState([]);
+    const [admins, setAdmins] = useState([]);
 
     useEffect(() => {
         fetchUser()
 
     }, []);
 
+   
+
     useEffect(() => {
-        fetchMyProducts()
+        fetchAdmins()
+    }, [])
 
-    }, []);
 
-    const fetchMyProducts = async () => {
-        const res = await fetch('/admin/myProducts');
-        if (res.status == 200) {
-            const resJson = await res.json();
-            if (resJson.data) {
-                setmyProducts(resJson.data)
-            }
+    const fetchAdmins = async () => {
+        try {
+            const res = await fetch("/admin/list")
+            const admins = await res.json()
+            const data = admins.data
+            console.log(data)
+            if (data)
+                setAdmins(data);
+        } catch (err) {
+            console.log(err)
         }
+
+
     }
 
     const fetchUser = async () => {
@@ -56,6 +62,7 @@ const AdminHome = () => {
         }
 
     }
+
     return (
         <div>
             <div className="m-0 p-3">
@@ -64,17 +71,18 @@ const AdminHome = () => {
                         <h2 ></h2>
                     </div>
                     <div className="me-3">
-                        <Link className="btn btn-lg btn-primary btn-block" to="/addProduct"><FaPlus /> Add Product</Link>
+                        <Link className="btn btn-lg btn-primary btn-block" to="/createAdmin"><FaPlus /> Create Admin</Link>
                     </div>
                 </div>
-                <div className="row d-flex col-12" >
-                    {myProducts.map((product) => {
-                        return <AdminProductCard product={product} key={product._id}/>
+                <div className="row d-flex col-12">
+                    {admins.map((admin) => {
+                        return <AdminCard admin={admin} key={admin._id} />
                     })}
                 </div>
+
             </div>
         </div>
     )
 }
 
-export default AdminHome
+export default SuperAdminHome

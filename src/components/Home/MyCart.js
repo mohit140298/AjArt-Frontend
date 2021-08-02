@@ -1,7 +1,7 @@
 import React, { useState ,useEffect} from 'react'
 import { useHistory } from 'react-router-dom';
 import MyCartProduct from './MyCartProduct'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios'
 
@@ -94,7 +94,7 @@ const MyCart = () => {
 
     const removeProductFromCart = async (productId) => {
         try {
-            const res = await axios.delete(`user/removeProduct/${productId}`)
+            const res = await axios.delete(`user/removeProductFromCart/${productId}`)
             if (res.status === 200) {
                 toast.success('operation success', {
                     position: "top-right",

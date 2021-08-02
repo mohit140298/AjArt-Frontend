@@ -1,13 +1,13 @@
-import { Container } from '@material-ui/core';
 import React from 'react'
 import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import Home from './components/Home/Home'
+import AdminHome from './components/Home/AdminHome'
+import SuperAdminHome from './components/Home/SuperAdminHome'
 import CreateAdmin from './components/Auth/CreateAdmin'
 import About from './components/Home/About'
 import Navbar from './components/Nav/Navbar';
 import UserNavBar from './components/Nav/UserNavBar';
-import HomeCarousal from './components/Product/Carousal';
 import Footer from './components/Home/footer';
 import Wishlist from './components/Home/Wishlist'
 import Logout from './components/Auth/Logout';
@@ -16,6 +16,7 @@ import { Route, Switch } from "react-router-dom";
 import Error from './components/Error'
 import Forgot from './components/Auth/Forgot';
 import MyCart from './components/Home/MyCart';
+import AddProduct from './components/Product/AddProduct';
 
 
 const App = () => {
@@ -29,6 +30,22 @@ const App = () => {
                     {/* <HomeCarousal /> */}
                     <Home />
                     
+                </Route>
+                <Route path="/customerHome">
+                    <UserNavBar />
+                    <Home />
+                </Route>
+                <Route path="/adminHome">
+                    <UserNavBar />
+                    <AdminHome />
+                </Route>
+                <Route path="/superAdminHome">
+                    <UserNavBar />
+                    <SuperAdminHome />
+                </Route>
+                <Route path="/about">
+                    <UserNavBar />
+                    <About />
                 </Route>
                 <Route path="/about">
                     <UserNavBar />
@@ -49,6 +66,10 @@ const App = () => {
                 <Route path="/createAdmin">
                     <UserNavBar />
                     <CreateAdmin />
+                </Route>
+                <Route path="/addProduct">
+                    <UserNavBar />
+                    <AddProduct />
                 </Route>
                 <Route path="/wishlist">
                     <UserNavBar />

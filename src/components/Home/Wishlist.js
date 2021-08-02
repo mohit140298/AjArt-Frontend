@@ -31,7 +31,7 @@ const Wishlist = () => {
     }
     const addToCart = async (productId) => {
         try {
-            const res = await axios.post(`user/addProduct/${productId}`)
+            const res = await axios.post(`user/addProductToCart/${productId}`)
             if (res.status === 200) {
 
                 removeProductFromWishlist(productId);

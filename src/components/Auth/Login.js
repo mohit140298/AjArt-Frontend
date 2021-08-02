@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Cookie from 'js-cookie'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom'
 
@@ -36,7 +36,7 @@ const Login = () => {
 
         const result = await res.json();
 
-        if (result.status != "success" || !result.data) {
+        if (result.status !== "success" || !result.data) {
             toast.error('invalid credentials !', {
                 position: "top-right",
                 autoClose: 2000,
@@ -59,9 +59,20 @@ const Login = () => {
                 draggable: true,
                 progress: undefined,
             });
-            console.log(result.data.token)
-            Cookie.set("jwt", result.token)
-            history.push('/')
+            
+            const userRole = result.data.role
+            if(userRole.index_id === 3)
+                history.push('/customerHome')
+            else if (userRole.index_id === 2)
+            {
+                history.push('/adminHome')
+
+            }
+            else
+            {
+                history.push('/superAdminHome')
+
+                }
         }
     }
     return (

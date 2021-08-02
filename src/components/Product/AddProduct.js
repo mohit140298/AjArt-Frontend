@@ -1,35 +1,32 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const CreateAdmin = () => {
+const AddProduct = () => {
     const history = useHistory()
-    const [user, setUser] = useState({
+    const [product, setProduct] = useState({
         name: "",
-        email: "",
-        mobile: "",
-        password: "",
-        cpassword: ""
+        price: ""
     })
     const handleInputs = (e) => {
         const { name, value } = e.target
 
 
-        setUser({ ...user, [name]: value })
+        setProduct({ ...product, [name]: value })
     }
 
     const PostData = async (e) => {
         e.preventDefault();
-        const { name, email, mobile, password, cpassword } = user;
+        const { name,price} = product;
 
-        const res = await fetch("/admin/create", {
+        const res = await fetch("/admin/addMyProduct", {
             method: "POST",
             headers: {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
-                name, email, mobile, password, cpassword
+                name, price
             })
         })
 
@@ -64,38 +61,25 @@ const CreateAdmin = () => {
         <div class="text-center mt-3">
             <div class="card-body">
                 <div className="text-center">
-                    <h3 class="card-title">Sign up</h3>
+                    <h3 class="card-title">Add Product</h3>
                     <img src="images/signup.png" alt="" className="rounded-circle pt-3" width="50px"></img>
                 </div>
 
-                <form id="registerForm" method="POST">
+                <form id="addProductForm" method="POST">
                     <div className="mb-3 pt-3">
                         <input type="text" className="" id="name" placeholder="name" name="name" autoComplete="off"
-                            value={user.name}
+                            value={product.name}
                             onChange={handleInputs}
                         />
                     </div>
                     <div className="mb-3 pt-3">
-                        <input type="number" className="" id="mobile" placeholder="mobile" name="mobile" autoComplete="off"
-                            value={user.mobile}
+                        <input type="number" className="" id="price" placeholder="price" name="price" autoComplete="off"
+                            value={product.price}
                             onChange={handleInputs} />
                     </div>
 
-                    <div className="mb-3 pt-3">
-                        <input type="text" className="" id="email" placeholder="Email" name="email" autoComplete="off"
-                            value={user.email}
-                            onChange={handleInputs} />
-                    </div>
-                    <div className="mb-3 pt-3">
-                        <input type="password" className="" id="password" placeholder="password" name="password" autoComplete="off"
-                            value={user.password}
-                            onChange={handleInputs} />
-                    </div>
-                    <div className="mb-3 pt-3">
-                        <input type="password" className="" id="cpassword" placeholder="confirm password" name="cpassword" autoComplete="off"
-                            value={user.cpassword}
-                            onChange={handleInputs} />
-                    </div>
+                   
+                   
 
 
                     <div className="mt-3 pt-3">
@@ -110,4 +94,4 @@ const CreateAdmin = () => {
     )
 }
 
-export default CreateAdmin
+export default AddProduct

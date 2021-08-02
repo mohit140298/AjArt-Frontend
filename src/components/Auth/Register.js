@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useHistory } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Register() {
@@ -34,7 +34,7 @@ function Register() {
         })
 
         const result = await res.json();
-        if (result.status != "success" || !result.data)
+        if (result.status !== "success" || !result.data)
         {
             toast.error('operation failed !', {
                 position: "top-right",
