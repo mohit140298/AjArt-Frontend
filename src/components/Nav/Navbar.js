@@ -11,7 +11,7 @@ function Navbar() {
                 <div className="d-flex justify-content-between align-items-center">
                     <div>
                         <Link className="navbar-brand" to="/">
-                            <img src="images/logo.jpg" alt="logo" width="60px"></img>
+                            <img src="/images/logo.jpg" alt="logo" width="60px"></img>
                         </Link>
                     </div>
                     <div className="navUl">

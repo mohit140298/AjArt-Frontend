@@ -8,15 +8,20 @@ import CreateAdmin from './components/Auth/CreateAdmin'
 import About from './components/Home/About'
 import Navbar from './components/Nav/Navbar';
 import UserNavBar from './components/Nav/UserNavBar';
+import AdminNavBar from './components/Nav/AdminNavBar';
+import SuperAdminNavBar from './components/Nav/superAdminNavBar';
 import Footer from './components/Home/footer';
 import Wishlist from './components/Home/Wishlist'
 import Logout from './components/Auth/Logout';
+import CustomerHome from './components/Home/CustomerHome'
 
 import { Route, Switch } from "react-router-dom";
 import Error from './components/Error'
 import Forgot from './components/Auth/Forgot';
 import MyCart from './components/Home/MyCart';
 import AddProduct from './components/Product/AddProduct';
+import EditProduct from './components/Product/EditProduct';
+import EditAdmin from './components/Auth/EditAdmin'
 
 
 const App = () => {
@@ -33,14 +38,14 @@ const App = () => {
                 </Route>
                 <Route path="/customerHome">
                     <UserNavBar />
-                    <Home />
+                    <CustomerHome />
                 </Route>
                 <Route path="/adminHome">
-                    <UserNavBar />
+                    <AdminNavBar />
                     <AdminHome />
                 </Route>
                 <Route path="/superAdminHome">
-                    <UserNavBar />
+                    <SuperAdminNavBar />
                     <SuperAdminHome />
                 </Route>
                 <Route path="/about">
@@ -68,8 +73,28 @@ const App = () => {
                     <CreateAdmin />
                 </Route>
                 <Route path="/addProduct">
-                    <UserNavBar />
+                    <AdminNavBar />
                     <AddProduct />
+                </Route>
+                <Route exact path="/editProduct/:id" render={(props) => (
+                    <React.Fragment >
+                        <AdminNavBar />
+                        <EditProduct id={props.match.params.id} />
+                    </React.Fragment>
+                     
+                    )} 
+                >
+                  
+                </Route>
+                <Route exact path="/editAdmin/:id" render={(props) => (
+                    <React.Fragment >
+                        <SuperAdminNavBar />
+                        <EditAdmin id={props.match.params.id} />
+                    </React.Fragment>
+
+                )}
+                >
+
                 </Route>
                 <Route path="/wishlist">
                     <UserNavBar />

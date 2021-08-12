@@ -1,33 +1,15 @@
-import { React, useState, useEffect } from 'react'
+import { React } from 'react'
 import { FaHeart, FaCheck } from "react-icons/fa";
 
 function Product(props) {
    
-    const { product, addToCart, addToWishlist } = props
-    const [isWishListed, setisWishListed] = useState(false);
+    const { product, addToCart, addToWishlist, wishListedProducts } = props
 
-    useEffect(() => {
-        inWishList(product._id);
-    },[])
-
-    const inWishList = async (productId) => {
-        try {
-
-            const res = await fetch(`user/checkProductInWishList/${productId}`)
-            if (res.status === 200) {
-                setisWishListed(true)
-                // window.location.reload()
-            }
-           
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
     return (
         <div>
             <div className="card productCard">
-                <img src={product.image} alt="product" width="300px" height="200px" />
+                <img src={product.image} alt="product" width="100%" height="200px" />
                 <div class="card-body" style={{ width: "300px"}}>
                     <h5 class="card-title">{product.name}</h5>
                     <p class="card-text">Rs {product.price} -/</p>
@@ -35,7 +17,7 @@ function Product(props) {
                         <div className="col-6">
                             <button onClick={() => addToCart(product._id)} class="btn btn-sm btn-primary">Add to cart</button>
                         </div>
-                        {isWishListed ? <div className="col-4 ml-3 ">
+                        {wishListedProducts.indexOf(product._id) >= 0 ? <div className="col-4 ml-3 ">
                             <button class="btn btn-sm btn-danger disabled"><FaCheck /></button>
                         </div> :
                             <div className="col-4 ml-3">

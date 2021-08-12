@@ -1,17 +1,30 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaEye } from "react-icons/fa";
 
-const CreateAdmin = () => {
+
+
+const EditAdmin = (props) => {
     const history = useHistory()
+    const adminId = props.id
+
     const [user, setUser] = useState({
-        name: "",
-        email: "",
-        mobile: "",
-        password: "",
-        cpassword: ""
+        
     })
+
+    React.useEffect(() => {
+        fetch(`/admin/${adminId}`).then((res) => {
+            res.json().then((resData) => {
+                console.log(resData.data)
+                setUser(resData.data)
+
+            })
+        }).catch(err => console.log(err))
+
+    }, []);
+
     const handleInputs = (e) => {
         const { name, value } = e.target
 
@@ -23,8 +36,8 @@ const CreateAdmin = () => {
         e.preventDefault();
         const { name, email, mobile, password, cpassword } = user;
 
-        const res = await fetch("/admin/create", {
-            method: "POST",
+        const res = await fetch(`/user/${adminId}/update`, {
+            method: "PATCH",
             headers: {
                 "content-type": "application/json"
             },
@@ -60,11 +73,12 @@ const CreateAdmin = () => {
         }
 
     }
+
     return (
-        <div class="text-center mt-3">
-            <div class="card-body">
+        <div className="text-center mt-3">
+            <div className="card-body">
                 <div className="text-center">
-                    <h3 class="card-title">Sign up</h3>
+                    <h3 className="card-title">Sign up</h3>
                     <img src="/images/login.png" alt="" className="rounded-circle pt-3" width="50px"></img>
                 </div>
 
@@ -90,11 +104,14 @@ const CreateAdmin = () => {
                         <input type="password" className="" id="password" placeholder="password" name="password" autoComplete="off"
                             value={user.password}
                             onChange={handleInputs} />
+                        <button className="btn btn-sm border-0"><FaEye /></button>
                     </div>
                     <div className="mb-3 pt-3">
                         <input type="password" className="" id="cpassword" placeholder="confirm password" name="cpassword" autoComplete="off"
                             value={user.cpassword}
                             onChange={handleInputs} />
+                        <button className="btn btn-sm border-0"><FaEye /></button>
+
                     </div>
 
 
@@ -110,4 +127,4 @@ const CreateAdmin = () => {
     )
 }
 
-export default CreateAdmin
+export default EditAdmin

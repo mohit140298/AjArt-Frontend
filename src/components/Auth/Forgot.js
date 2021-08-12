@@ -8,7 +8,7 @@ const Forgot = () => {
             <div class="card-body">
                 <div className="text-center">
                     <h3 class="card-title">Forgot Password</h3>
-                    <img src="images/login.png" alt="" className="rounded-circle pt-3" width="50px"></img>
+                    <img src="/images/login.png" alt="" className="rounded-circle pt-3" width="50px"></img>
                 </div>
 
                 <form method="POST" id="loginForm">

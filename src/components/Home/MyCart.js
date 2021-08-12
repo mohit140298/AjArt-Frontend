@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import MyCartProduct from './MyCartProduct'
 import { toast } from 'react-toastify';
@@ -11,45 +11,11 @@ const MyCart = () => {
     const [myProducts, setMyProducts] = useState([]);
     const [total, setTotal] = useState(0)
 
-    const fetchMyCartProducts = async () => {
-        try {
-            const res = await fetch(`/user/cartProducts`);
-            const productsData = await res.json();
-            if (productsData)
-            {
-                if (productsData.data) {
-                    
-                    setMyProducts(productsData.data);
-
-                    let totalPrice = productsData.data.reduce(function (tot, arr) {
-                        // return the sum with previous value
-                        return tot + arr.price;
-
-                        // set initial value as 0
-                    }, 0);
-                    if(totalPrice)
-                    setTotal(totalPrice)
-                }
-                    
-            }
-        } catch (error) {
-            console.log(error)
-            toast.error('operation failed !', {
-                position: "top-right",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-        }
-    }
 
     useEffect(() => {
         fetchUser()
     }, [])
-   
+
 
     const fetchUser = async () => {
         try {
@@ -69,11 +35,25 @@ const MyCart = () => {
                 history.push('/Login')
             }
             else {
-                const data = userData.data
-                
-                setUser(data);
-                fetchMyCartProducts()
-                
+                if (userData) {
+                    const data = userData.data
+                    setUser(data);
+                    if (userData.cartProducts) {
+
+                        setMyProducts(userData.cartProducts);
+
+                        let totalPrice = userData.cartProducts.reduce(function (tot, arr) {
+                            // return the sum with previous value
+                            return tot + arr.price;
+
+                            // set initial value as 0
+                        }, 0);
+                        if (totalPrice)
+                            setTotal(totalPrice)
+                    }
+                }
+
+
             }
 
         } catch (err) {
@@ -119,33 +99,33 @@ const MyCart = () => {
                 progress: undefined,
             });
         }
-        
+
     }
     return (
         <div class="text-center mt-3">
             <div class="card-body">
                 <div className="text-center">
                     <h3 class="card-title">My Cart</h3>
-                    <img src="images/cart.jpg" alt="" className=" pt-3" width="100px" height="100px" style={{borderRadius:"60%"}}></img>
-                   
+                    <img src="images/cart.jpg" alt="" className=" pt-3" width="100px" height="100px" style={{ borderRadius: "60%" }}></img>
+
                 </div>
 
-                
-               
+
+
 
                 <form method="POST" id="cartForm">
                     <div className="mb-3 pt-3 text-center">
-                       
-                            {myProducts.map((product) => {
-                                return <MyCartProduct key={product._id} product={product} removeProductFromCart={removeProductFromCart} />
-                            })}
-                        
+
+                        {myProducts.map((product) => {
+                            return <MyCartProduct key={product._id} product={product} removeProductFromCart={removeProductFromCart} />
+                        })}
+
                     </div>
 
-                    <div class='card cartProductCard mt-5 mb-5' style={{left:"20%"}}>
+                    <div class='card cartProductCard mt-5 mb-5' style={{ left: "20%" }}>
                         <div class="row col-12">
                             <div class="col-3 container-image">
-                           
+
 
                             </div>
                             <div class="col-8 infoDiv">
@@ -162,7 +142,7 @@ const MyCart = () => {
 
                                 <div class="row dataRow">
                                     <div class="col-6">
-                                       Total :
+                                        Total :
                                     </div>
                                     <div class="col-6">
                                         {total}

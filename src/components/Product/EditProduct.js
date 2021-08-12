@@ -1,14 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AddProduct = () => {
+
+const EditProduct = ( props ) => {
     const history = useHistory()
+    const productId = props.id
     const [product, setProduct] = useState({
-        name: "",
-        price: ""
+       
     })
+
+    useEffect(() => {
+        fetch(`/product/${productId}`).then((res) => {
+            res.json().then((resData) => {
+                console.log(resData.data)
+                setProduct(resData.data)
+
+            })
+        }).catch(err => console.log(err))
+        
+    }, []);
     const handleInputs = (e) => {
         const { name, value } = e.target
 
@@ -18,10 +30,10 @@ const AddProduct = () => {
 
     const PostData = async (e) => {
         e.preventDefault();
-        const { name,price} = product;
+        const { name, price } = product;
 
-        const res = await fetch("/product/create", {
-            method: "POST",
+        const res = await fetch(`/product/${productId}/update`, {
+            method: "PATCH",
             headers: {
                 "content-type": "application/json"
             },
@@ -61,7 +73,7 @@ const AddProduct = () => {
         <div class="text-center mt-3">
             <div class="card-body">
                 <div className="text-center">
-                    <h3 class="card-title">Add Product</h3>
+                    <h3 class="card-title">Edit Product</h3>
                     <img src="images/signup.png" alt="" className="rounded-circle pt-3" width="50px"></img>
                 </div>
 
@@ -78,12 +90,8 @@ const AddProduct = () => {
                             onChange={handleInputs} />
                     </div>
 
-                   
-                   
-
-
                     <div className="mt-3 pt-3">
-                        <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={PostData}>submit</button>
+                        <button type="submit" className="btn btn-lg btn-primary btn-block" onClick={PostData}>update</button>
                     </div>
 
 
@@ -94,4 +102,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default EditProduct

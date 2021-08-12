@@ -74,9 +74,9 @@ const SuperAdminHome = () => {
                         <Link className="btn btn-lg btn-primary btn-block" to="/createAdmin"><FaPlus /> Create Admin</Link>
                     </div>
                 </div>
-                <div className="row d-flex col-12">
+                <div className="row col-12">
                     {admins.map((admin) => {
-                        return <AdminCard admin={admin} key={admin._id} />
+                        return <div className="col-2 ms-5" key={admin._id}><AdminCard admin={admin}  /> </div>
                     })}
                 </div>
 

@@ -6,31 +6,18 @@ import AdminProductCard from '../Product/AdminProductCard'
 import { FaPlus } from "react-icons/fa";
 
 
+
 const AdminHome = () => {
     const history = useHistory()
-    const [user, setUser] = useState({});
-    const [role, setRole] = useState({});
     const [myProducts, setmyProducts] = useState([]);
 
     useEffect(() => {
+
         fetchUser()
 
     }, []);
 
-    useEffect(() => {
-        fetchMyProducts()
-
-    }, []);
-
-    const fetchMyProducts = async () => {
-        const res = await fetch('/admin/myProducts');
-        if (res.status == 200) {
-            const resJson = await res.json();
-            if (resJson.data) {
-                setmyProducts(resJson.data)
-            }
-        }
-    }
+    
 
     const fetchUser = async () => {
         try {
@@ -41,11 +28,12 @@ const AdminHome = () => {
                 history.push('/Login')
             }
             else {
-                const data = userData.data
-                if (data)
-                    setUser(data);
-                if (userData.role)
-                    setRole(userData.role)
+                if (userData)
+                {
+                    if (userData.myProducts)
+                        setmyProducts(userData.myProducts)
+                }
+                
 
             }
 
@@ -56,6 +44,8 @@ const AdminHome = () => {
         }
 
     }
+
+    
     return (
         <div>
             <div className="m-0 p-3">
@@ -67,9 +57,9 @@ const AdminHome = () => {
                         <Link className="btn btn-lg btn-primary btn-block" to="/addProduct"><FaPlus /> Add Product</Link>
                     </div>
                 </div>
-                <div className="row d-flex col-12" >
+                <div className="row col-12" >
                     {myProducts.map((product) => {
-                        return <AdminProductCard product={product} key={product._id}/>
+                        return <div key={product._id} className="col-2 ms-5"> <AdminProductCard product={product}  /> </div>
                     })}
                 </div>
             </div>

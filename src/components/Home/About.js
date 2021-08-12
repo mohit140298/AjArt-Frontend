@@ -15,7 +15,7 @@ function About() {
     
 
     const handleImage = async (e) => {
-    //   e.preventDefault()
+        e.preventDefault()
         const formData = new FormData();
         formData.append('file', e.target.files[0])
         try {
@@ -68,7 +68,7 @@ function About() {
 
     useEffect(() => {
         fetchUser()
-    }, [])
+    }, [user])
 
     const fetchUser = async () => {
         try {
